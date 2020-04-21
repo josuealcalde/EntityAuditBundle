@@ -28,7 +28,9 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('username_callable')->defaultValue('simplethings_entityaudit.username_callable.token_storage')->end()
-                    ->end()
+                        ->scalarNode('impersonate_callable')->defaultValue('simplethings_entityaudit.impersonate_callable.token_storage')->end()
+                        ->scalarNode('ip_callable')->defaultValue('simplethings_entityaudit.ip_callable.request')->end()
+                        ->scalarNode('action_callable')->defaultValue('simplethings_entityaudit.action_callable.request')->end()
                 ->end()
             ->end()
         ;

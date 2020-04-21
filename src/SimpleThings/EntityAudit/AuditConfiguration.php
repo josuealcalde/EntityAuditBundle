@@ -36,6 +36,9 @@ class AuditConfiguration
     private $revisionTypeFieldName = 'revtype';
     private $revisionIdFieldType = 'integer';
     private $usernameCallable;
+    private $impersonateCallable;
+    private $ipCallable;
+    private $actionCallable;
 
     /**
      * @param array $classes
@@ -177,6 +180,132 @@ class AuditConfiguration
     public function getUsernameCallable()
     {
         return $this->usernameCallable;
+    }
+
+    /**
+     * @deprecated
+     * @param string|null $impersonate
+     */
+    public function setCurrentImpersonate($impersonate)
+    {
+        $this->setImpersonateCallable(function () use ($impersonate) {
+            return $impersonate;
+        });
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentImpersonate()
+    {
+        $callable = $this->impersonateCallable;
+
+        return $callable ? $callable() : null;
+    }
+
+    public function setImpersonateCallable($impersonateCallable)
+    {
+        // php 5.3 compat
+        if (null !== $impersonateCallable && !is_callable($impersonateCallable)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Impersonate Callable must be callable. Got: %s',
+                is_object($impersonateCallable) ? get_class($impersonateCallable) : gettype($impersonateCallable)
+            ));
+        }
+
+        $this->impersonateCallable = $impersonateCallable;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getImpersonateCallable()
+    {
+        return $this->impersonateCallable;
+    }
+
+    /**
+     * @deprecated
+     * @param string|null $action
+     */
+    public function setCurrentAction($action)
+    {
+        $this->setActionCallable(function () use ($action) {
+            return $action;
+        });
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentAction()
+    {
+        $callable = $this->actionCallable;
+
+        return  $callable ? $callable() : null;
+    }
+
+    public function setActionCallable($actionCallable)
+    {
+        // php 5.3 compat
+        if (null !== $actionCallable && !is_callable($actionCallable)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Action Callable must be callable. Got: %s',
+                is_object($actionCallable) ? get_class($actionCallable) : gettype($actionCallable)
+            ));
+        }
+
+        $this->actionCallable = $actionCallable;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getActionCallable()
+    {
+        return $this->actionCallable;
+    }
+
+    /**
+     * @deprecated
+     * @param string|null $ip
+     */
+    public function setCurrentIp($ip)
+    {
+        $this->setIpCallable(function () use ($ip) {
+            return $ip;
+        });
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentIp()
+    {
+        $callable = $this->ipCallable;
+
+        return $callable ? $callable() : null;
+    }
+
+    public function setIpCallable($ipCallable)
+    {
+        // php 5.3 compat
+        if (null !== $ipCallable && !is_callable($ipCallable)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Ip Callable must be callable. Got: %s',
+                is_object($ipCallable) ? get_class($ipCallable) : gettype($ipCallable)
+            ));
+        }
+
+        $this->ipCallable = $ipCallable;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getIpCallable()
+    {
+        return $this->ipCallable;
     }
 
     public function setRevisionIdFieldType($revisionIdFieldType)

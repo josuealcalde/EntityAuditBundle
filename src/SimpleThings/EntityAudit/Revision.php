@@ -31,12 +31,18 @@ class Revision
     private $rev;
     private $timestamp;
     private $username;
+    private $impersonate;
+    private $ip;
+    private $action;
 
-    function __construct($rev, $timestamp, $username)
+    public function __construct($rev, $timestamp, $username, $impersonate = null, $ip = null, $action = null)
     {
         $this->rev = $rev;
         $this->timestamp = $timestamp;
         $this->username = $username;
+        $this->impersonate = $impersonate;
+        $this->ip = $ip;
+        $this->action = $action;
     }
 
     public function getRev()
@@ -53,4 +59,20 @@ class Revision
     {
         return $this->username;
     }
+
+    public function getImpersonate()
+    {
+        return $this->impersonate;
+    }
+
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    public function getAction()
+    {
+        return $this->action;
+    }
+
 }

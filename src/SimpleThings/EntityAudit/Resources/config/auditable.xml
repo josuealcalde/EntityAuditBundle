@@ -43,6 +43,18 @@
             <argument id="service_container" type="service" />
         </service>
 
+        <service id="simplethings_entityaudit.impersonate_callable.token_storage" class="SimpleThings\EntityAudit\User\TokenStorageImpersonateCallable">
+            <argument id="service_container" type="service"/>
+        </service>
+
+        <service id="simplethings_entityaudit.ip_callable.request" class="SimpleThings\EntityAudit\Request\RequestIpCallable">
+            <argument id="service_container" type="service"/>
+        </service>
+
+        <service id="simplethings_entityaudit.action_callable.request" class="SimpleThings\EntityAudit\Request\RequestActionCallable">
+            <argument id="service_container" type="service"/>
+        </service>
+
         <service id="simplethings_entityaudit.config" class="SimpleThings\EntityAudit\AuditConfiguration" public="true">
             <call method="setAuditedEntityClasses">
                 <argument>%simplethings.entityaudit.audited_entities%</argument>
@@ -70,6 +82,15 @@
             </call>
             <call method="setUsernameCallable">
                 <argument type="service" id="simplethings_entityaudit.username_callable" />
+            </call>
+            <call method="setImpersonateCallable">
+                <argument type="service" id="simplethings_entityaudit.impersonate_callable" />
+            </call>
+            <call method="setActionCallable">
+                <argument type="service" id="simplethings_entityaudit.action_callable" />
+            </call>
+            <call method="setIpCallable">
+                <argument type="service" id="simplethings_entityaudit.ip_callable" />
             </call>
         </service>
 
