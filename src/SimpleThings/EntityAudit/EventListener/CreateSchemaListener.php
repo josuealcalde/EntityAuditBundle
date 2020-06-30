@@ -111,6 +111,7 @@ class CreateSchemaListener implements EventSubscriber
         $revisionsTable->addColumn('timestamp', 'datetime');
         $revisionsTable->addColumn('username', 'string')->setNotnull(false);
         $revisionsTable->addColumn('impersonate', 'string')->setNotnull(false);
+        $revisionsTable->addColumn('accesstoken', 'string')->setNotnull(false);
         $revisionsTable->addColumn('ip', 'string')->setNotnull(false);
         $revisionsTable->addColumn('action', 'string')->setNotnull(false);
         $revisionsTable->setPrimaryKey(array('id'));

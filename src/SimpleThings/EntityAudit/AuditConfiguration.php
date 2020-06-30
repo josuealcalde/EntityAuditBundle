@@ -37,6 +37,7 @@ class AuditConfiguration
     private $revisionIdFieldType = 'integer';
     private $usernameCallable;
     private $impersonateCallable;
+    private $accesstokenCallable;
     private $ipCallable;
     private $actionCallable;
 
@@ -222,6 +223,48 @@ class AuditConfiguration
     public function getImpersonateCallable()
     {
         return $this->impersonateCallable;
+    }
+
+    /**
+     * @param string|null $accesstoken
+     *@deprecated
+     */
+    public function setCurrentAccesstoken($accesstoken)
+    {
+        $this->setAccesstokenCallable(function () use ($accesstoken) {
+            return $accesstoken;
+        });
+    }
+
+    /**
+     * @return string
+     */
+    public function getCurrentAccesstoken()
+    {
+        $callable = $this->accesstokenCallable;
+
+        return $callable ? $callable() : null;
+    }
+
+    public function setAccesstokenCallable($accesstokenCallable)
+    {
+        // php 5.3 compat
+        if (null !== $accesstokenCallable && !is_callable($accesstokenCallable)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Access Token Callable must be callable. Got: %s',
+                is_object($accesstokenCallable) ? get_class($accesstokenCallable) : gettype($accesstokenCallable)
+            ));
+        }
+
+        $this->accesstokenCallable = $accesstokenCallable;
+    }
+
+    /**
+     * @return callable|null
+     */
+    public function getAccesstokenCallable()
+    {
+        return $this->accesstokenCallable;
     }
 
     /**

@@ -542,6 +542,7 @@ class AuditReader
                 \DateTime::createFromFormat($this->platform->getDateTimeFormatString(), $row['timestamp']),
                 $row['username'],
                 $row['impersonate'],
+                $row['accesstoken'],
                 $row['ip'],
                 $row['action']
             );
@@ -664,6 +665,7 @@ class AuditReader
                 \DateTime::createFromFormat($this->platform->getDateTimeFormatString(), $revisionsData[0]['timestamp']),
                 $revisionsData[0]['username'],
                 $revisionsData[0]['impersonate'],
+                $revisionsData[0]['accesstoken'],
                 $revisionsData[0]['ip'],
                 $revisionsData[0]['action']
             );
@@ -720,6 +722,7 @@ class AuditReader
                 \DateTime::createFromFormat($this->platform->getDateTimeFormatString(), $row['timestamp']),
                 $row['username'],
                 $row['impersonate'],
+                $row['accesstoken'],
                 $row['ip'],
                 $row['action']
             );

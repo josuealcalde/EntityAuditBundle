@@ -316,11 +316,13 @@ class LogRevisionsListener implements EventSubscriber
                     'timestamp' => date_create('now'),
                     'username' => $this->config->getCurrentUsername(),
                     'impersonate' => $this->config->getCurrentImpersonate(),
+                    'accesstoken' => $this->config->getCurrentAccesstoken(),
                     'ip' => $this->config->getCurrentIp(),
                     'action' => $this->config->getCurrentAction(),
                 ),
                 array(
                     Type::DATETIME,
+                    Type::STRING,
                     Type::STRING,
                     Type::STRING,
                     Type::STRING,
